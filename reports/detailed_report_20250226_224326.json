@@ -1,0 +1,31 @@
+{
+  "bot_name": "CryptoTradingBot",
+  "bot_mode": "demo",
+  "generated_at": "2025-02-26T22:43:26.493731",
+  "overall_stats": {
+    "total_profit": 0.0,
+    "total_trades": 0,
+    "winning_trades": 0,
+    "losing_trades": 0,
+    "win_rate": 0,
+    "profit_factor": 0.0,
+    "avg_win": 0.0,
+    "avg_loss": 0.0,
+    "max_drawdown": 0.0,
+    "drawdown_percent": 0.0,
+    "sharpe_ratio": 0.0,
+    "demo_to_live": {
+      "ready": false,
+      "win_rate": 0,
+      "threshold": 85.0,
+      "trades": 0,
+      "required_trades": 100
+    }
+  },
+  "symbol_stats": {},
+  "daily_stats": {},
+  "weekly_stats": {},
+  "monthly_stats": {},
+  "yearly_stats": {},
+  "all_trades": []
+}

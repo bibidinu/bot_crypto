@@ -1,0 +1,187 @@
+2025-02-26 22:43:15 - __main__ - INFO - Avvio CryptoTradingBot v1.0.0 in modalità demo
+2025-02-26 22:43:15 - core.bot - INFO - Inizializzazione CryptoTradingBot...
+2025-02-26 22:43:15 - api.bybit_api - INFO - BybitAPI inizializzata in modalità: demo
+2025-02-26 22:43:15 - data.market_data - INFO - MarketData inizializzato
+2025-02-26 22:43:15 - data.sentiment_analyzer - INFO - SentimentAnalyzer inizializzato
+2025-02-26 22:43:15 - data.economic_calendar - INFO - EconomicCalendar inizializzato
+2025-02-26 22:43:15 - risk_management.position_manager - INFO - PositionManager inizializzato
+2025-02-26 22:43:15 - risk_management.risk_calculator - INFO - RiskCalculator inizializzato
+2025-02-26 22:43:15 - stats.performance - INFO - Nessuno storico dei trade trovato
+2025-02-26 22:43:15 - stats.performance - INFO - PerformanceCalculator inizializzato
+2025-02-26 22:43:15 - stats.reporting - INFO - ReportGenerator inizializzato
+2025-02-26 22:43:15 - database.db_manager - INFO - Database inizializzato
+2025-02-26 22:43:15 - database.db_manager - INFO - DatabaseManager inizializzato con database in database\trading_bot.db
+2025-02-26 22:43:15 - strategy.strategy_base.MainTechnicalStrategy - INFO - Strategia MainTechnicalStrategy inizializzata
+2025-02-26 22:43:15 - strategy.technical_strategy.MainTechnicalStrategy - INFO - Strategia tecnica MainTechnicalStrategy inizializzata
+2025-02-26 22:43:15 - strategy.strategy_base.MainMLStrategy - INFO - Strategia MainMLStrategy inizializzata
+2025-02-26 22:43:15 - strategy.ml_strategy.MainMLStrategy - INFO - Strategia ML MainMLStrategy inizializzata
+2025-02-26 22:43:15 - communication.telegram_client - INFO - TelegramClient inizializzato
+2025-02-26 22:43:15 - communication.discord_client - INFO - DiscordClient inizializzato
+2025-02-26 22:43:15 - commands.cmd_processor - INFO - Comando 'help' registrato
+2025-02-26 22:43:15 - commands.cmd_processor - INFO - CommandProcessor inizializzato
+2025-02-26 22:43:15 - commands.cmd_processor - INFO - Comando 'status' registrato
+2025-02-26 22:43:15 - commands.cmd_processor - INFO - Comando 'start' registrato
+2025-02-26 22:43:15 - commands.cmd_processor - INFO - Comando 'stop' registrato
+2025-02-26 22:43:15 - commands.cmd_processor - INFO - Comando 'pause' registrato
+2025-02-26 22:43:15 - commands.cmd_processor - INFO - Comando 'resume' registrato
+2025-02-26 22:43:15 - commands.cmd_processor - INFO - Comando 'positions' registrato
+2025-02-26 22:43:15 - commands.cmd_processor - INFO - Comando 'orders' registrato
+2025-02-26 22:43:15 - commands.cmd_processor - INFO - Comando 'close' registrato
+2025-02-26 22:43:15 - commands.cmd_processor - INFO - Comando 'closeall' registrato
+2025-02-26 22:43:15 - commands.cmd_processor - INFO - Comando 'balance' registrato
+2025-02-26 22:43:15 - commands.cmd_processor - INFO - Comando 'trade' registrato
+2025-02-26 22:43:15 - commands.cmd_processor - INFO - Comando 'setmode' registrato
+2025-02-26 22:43:15 - commands.cmd_processor - INFO - Comando 'addpair' registrato
+2025-02-26 22:43:15 - commands.cmd_processor - INFO - Comando 'removepair' registrato
+2025-02-26 22:43:15 - commands.cmd_processor - INFO - Comando 'pairs' registrato
+2025-02-26 22:43:15 - commands.cmd_processor - INFO - Comando 'setrisk' registrato
+2025-02-26 22:43:15 - commands.cmd_processor - INFO - Comando 'stats' registrato
+2025-02-26 22:43:15 - commands.cmd_processor - INFO - Comando 'performance' registrato
+2025-02-26 22:43:15 - commands.cmd_processor - INFO - Comando 'trades' registrato
+2025-02-26 22:43:15 - commands.cmd_processor - INFO - Comando 'analyze' registrato
+2025-02-26 22:43:15 - commands.cmd_processor - INFO - Comando 'scan' registrato
+2025-02-26 22:43:15 - commands.cmd_processor - INFO - Comando 'report' registrato
+2025-02-26 22:43:15 - commands.cmd_processor - INFO - Comando 'chart' registrato
+2025-02-26 22:43:15 - commands.cmd_processor - INFO - Comando 'version' registrato
+2025-02-26 22:43:15 - commands.cmd_processor - INFO - Comando 'logs' registrato
+2025-02-26 22:43:15 - commands.cmd_handlers - INFO - CommandHandlers inizializzato
+2025-02-26 22:43:15 - core.bot - INFO - CryptoTradingBot inizializzato
+2025-02-26 22:43:15 - core.agent_manager - INFO - AgentManager inizializzato
+2025-02-26 22:43:15 - api.bybit_api - INFO - BybitAPI inizializzata in modalità: demo
+2025-02-26 22:43:15 - data.market_data - INFO - MarketData inizializzato
+2025-02-26 22:43:15 - risk_management.position_manager - INFO - PositionManager inizializzato
+2025-02-26 22:43:15 - risk_management.risk_calculator - INFO - RiskCalculator inizializzato
+2025-02-26 22:43:15 - strategy.strategy_base.MainTechnicalStrategy - INFO - Strategia MainTechnicalStrategy inizializzata
+2025-02-26 22:43:15 - strategy.technical_strategy.MainTechnicalStrategy - INFO - Strategia tecnica MainTechnicalStrategy inizializzata
+2025-02-26 22:43:15 - strategy.strategy_base.MainMLStrategy - INFO - Strategia MainMLStrategy inizializzata
+2025-02-26 22:43:15 - strategy.ml_strategy.MainMLStrategy - INFO - Strategia ML MainMLStrategy inizializzata
+2025-02-26 22:43:15 - core.bot - INFO - Modalità impostata a demo
+2025-02-26 22:43:15 - core.agent_manager - INFO - Worker di addestramento avviato
+2025-02-26 22:43:15 - core.agent_manager - INFO - AgentManager avviato
+2025-02-26 22:43:26 - core.bot - INFO - Avvio del bot...
+2025-02-26 22:43:26 - core.bot - INFO - Loop principale avviato
+2025-02-26 22:43:26 - core.bot - INFO - Loop dei dati di mercato avviato
+2025-02-26 22:43:26 - core.bot - INFO - Loop dei segnali avviato
+2025-02-26 22:43:26 - data.market_data - INFO - Worker di aggiornamento avviato
+2025-02-26 22:43:26 - core.bot - INFO - Loop delle posizioni avviato
+2025-02-26 22:43:26 - data.market_data - INFO - Thread di aggiornamento avviato
+2025-02-26 22:43:26 - core.bot - INFO - Loop dei report avviato
+2025-02-26 22:43:26 - core.bot - INFO - Thread di elaborazione avviati
+2025-02-26 22:43:26 - core.bot - INFO - Generazione del report periodico...
+2025-02-26 22:43:26 - stats.reporting - INFO - Report salvato in reports\detailed_report_20250226_224326.json
+2025-02-26 22:43:26 - stats.reporting - WARNING - Nessun dato disponibile per il grafico daily
+2025-02-26 22:43:26 - stats.reporting - WARNING - Nessun dato disponibile per il grafico weekly
+2025-02-26 22:43:26 - stats.reporting - WARNING - Nessun dato disponibile per il grafico monthly
+2025-02-26 22:43:26 - stats.reporting - WARNING - Nessun dato disponibile per il grafico yearly
+2025-02-26 22:43:26 - stats.reporting - WARNING - Nessun profitto disponibile per il grafico
+2025-02-26 22:43:26 - communication.telegram_client - ERROR - Errore nell'invio del messaggio a Telegram: Not Found
+2025-02-26 22:43:26 - communication.telegram_client - ERROR - Errore nella connessione a Telegram: Not Found
+2025-02-26 22:43:27 - communication.discord_client - INFO - Connessione a Discord riuscita
+2025-02-26 22:43:27 - communication.telegram_client - INFO - Handler registrato per il comando /help
+2025-02-26 22:43:27 - communication.telegram_client - INFO - Handler registrato per il comando /status
+2025-02-26 22:43:27 - communication.telegram_client - INFO - Handler registrato per il comando /stats
+2025-02-26 22:43:27 - communication.telegram_client - INFO - Handler registrato per il comando /positions
+2025-02-26 22:43:27 - communication.telegram_client - INFO - Handler registrato per il comando /trades
+2025-02-26 22:43:27 - communication.telegram_client - INFO - Handler registrato per il comando /start
+2025-02-26 22:43:27 - communication.telegram_client - INFO - Handler registrato per il comando /stop
+2025-02-26 22:43:27 - communication.telegram_client - INFO - Handler registrato per il comando /scan
+2025-02-26 22:43:27 - communication.telegram_client - INFO - Handler registrato per il comando /analyze
+2025-02-26 22:43:27 - communication.telegram_client - INFO - Worker di ascolto avviato
+2025-02-26 22:43:27 - communication.telegram_client - INFO - Thread di ascolto avviato
+2025-02-26 22:43:27 - api.bybit_api - ERROR - Errore API Bybit: Invalid period!
+2025-02-26 22:43:27 - data.market_data - ERROR - Errore nel recupero dati per BTC/USDT 15m: Errore API Bybit: Invalid period!
+2025-02-26 22:43:27 - core.bot - INFO - Notifica di performance inviata
+2025-02-26 22:43:27 - communication.telegram_client - ERROR - Errore nell'invio del messaggio a Telegram: Not Found
+2025-02-26 22:43:27 - communication.telegram_client - ERROR - Errore nell'invio del messaggio a Telegram: Not Found
+2025-02-26 22:43:27 - api.bybit_api - ERROR - Errore API Bybit: Invalid period!
+2025-02-26 22:43:27 - data.market_data - ERROR - Errore nel recupero dati per ETH/USDT 15m: Errore API Bybit: Invalid period!
+2025-02-26 22:43:27 - communication.telegram_client - ERROR - Errore nel recupero degli aggiornamenti: Not Found
+2025-02-26 22:43:27 - core.bot - INFO - Bot avviato in modalità demo
+2025-02-26 22:43:27 - api.bybit_api - ERROR - Errore API Bybit: Invalid period!
+2025-02-26 22:43:27 - data.market_data - ERROR - Errore nel recupero dati per SOL/USDT 15m: Errore API Bybit: Invalid period!
+2025-02-26 22:43:27 - api.bybit_api - ERROR - Errore API Bybit: Invalid period!
+2025-02-26 22:43:27 - data.market_data - ERROR - Errore nel recupero dati per BNB/USDT 15m: Errore API Bybit: Invalid period!
+2025-02-26 22:43:28 - api.bybit_api - ERROR - Errore API Bybit: Invalid period!
+2025-02-26 22:43:28 - data.market_data - ERROR - Errore nel recupero dati per XRP/USDT 15m: Errore API Bybit: Invalid period!
+2025-02-26 22:43:28 - communication.telegram_client - ERROR - Errore nel recupero degli aggiornamenti: Not Found
+2025-02-26 22:43:28 - api.bybit_api - ERROR - Errore API Bybit: Invalid period!
+2025-02-26 22:43:28 - data.market_data - ERROR - Errore nel recupero dati per ADA/USDT 15m: Errore API Bybit: Invalid period!
+2025-02-26 22:43:28 - api.bybit_api - ERROR - Errore API Bybit: Invalid period!
+2025-02-26 22:43:28 - data.market_data - ERROR - Errore nel recupero dati per BTC/USDT 1m: Errore API Bybit: Invalid period!
+2025-02-26 22:43:29 - communication.telegram_client - ERROR - Errore nel recupero degli aggiornamenti: Not Found
+2025-02-26 22:43:30 - api.bybit_api - ERROR - Errore API Bybit: Invalid period!
+2025-02-26 22:43:30 - data.market_data - ERROR - Errore nel recupero dati per BTC/USDT 5m: Errore API Bybit: Invalid period!
+2025-02-26 22:43:30 - communication.telegram_client - ERROR - Errore nel recupero degli aggiornamenti: Not Found
+2025-02-26 22:43:31 - api.bybit_api - ERROR - Errore API Bybit: Invalid period!
+2025-02-26 22:43:31 - data.market_data - ERROR - Errore nel recupero dati per BTC/USDT 15m: Errore API Bybit: Invalid period!
+2025-02-26 22:43:32 - communication.telegram_client - ERROR - Errore nel recupero degli aggiornamenti: Not Found
+2025-02-26 22:43:32 - api.bybit_api - ERROR - Errore API Bybit: Invalid period!
+2025-02-26 22:43:32 - data.market_data - ERROR - Errore nel recupero dati per BTC/USDT 30m: Errore API Bybit: Invalid period!
+2025-02-26 22:43:33 - communication.telegram_client - ERROR - Errore nel recupero degli aggiornamenti: Not Found
+2025-02-26 22:43:34 - api.bybit_api - ERROR - Errore API Bybit: Invalid period!
+2025-02-26 22:43:34 - data.market_data - ERROR - Errore nel recupero dati per BTC/USDT 1h: Errore API Bybit: Invalid period!
+2025-02-26 22:43:34 - communication.telegram_client - ERROR - Errore nel recupero degli aggiornamenti: Not Found
+2025-02-26 22:43:35 - communication.telegram_client - ERROR - Errore nel recupero degli aggiornamenti: Not Found
+2025-02-26 22:43:35 - api.bybit_api - ERROR - Errore API Bybit: Invalid period!
+2025-02-26 22:43:35 - data.market_data - ERROR - Errore nel recupero dati per BTC/USDT 4h: Errore API Bybit: Invalid period!
+2025-02-26 22:43:36 - communication.telegram_client - ERROR - Errore nel recupero degli aggiornamenti: Not Found
+2025-02-26 22:43:37 - api.bybit_api - ERROR - Errore API Bybit: Invalid period!
+2025-02-26 22:43:37 - data.market_data - ERROR - Errore nel recupero dati per BTC/USDT 1d: Errore API Bybit: Invalid period!
+2025-02-26 22:43:37 - communication.telegram_client - ERROR - Errore nel recupero degli aggiornamenti: Not Found
+2025-02-26 22:43:38 - api.bybit_api - ERROR - Errore API Bybit: Invalid period!
+2025-02-26 22:43:38 - data.market_data - ERROR - Errore nel recupero dati per ETH/USDT 1m: Errore API Bybit: Invalid period!
+2025-02-26 22:43:38 - communication.telegram_client - ERROR - Errore nel recupero degli aggiornamenti: Not Found
+2025-02-26 22:43:39 - api.bybit_api - ERROR - Errore API Bybit: Invalid period!
+2025-02-26 22:43:39 - data.market_data - ERROR - Errore nel recupero dati per ETH/USDT 5m: Errore API Bybit: Invalid period!
+2025-02-26 22:43:40 - communication.telegram_client - ERROR - Errore nel recupero degli aggiornamenti: Not Found
+2025-02-26 22:43:40 - api.bybit_api - ERROR - Errore API Bybit: Invalid period!
+2025-02-26 22:43:40 - data.market_data - ERROR - Errore nel recupero dati per ETH/USDT 15m: Errore API Bybit: Invalid period!
+2025-02-26 22:43:41 - communication.telegram_client - ERROR - Errore nel recupero degli aggiornamenti: Not Found
+2025-02-26 22:43:42 - communication.telegram_client - ERROR - Errore nel recupero degli aggiornamenti: Not Found
+2025-02-26 22:43:42 - api.bybit_api - ERROR - Errore API Bybit: Invalid period!
+2025-02-26 22:43:42 - data.market_data - ERROR - Errore nel recupero dati per ETH/USDT 30m: Errore API Bybit: Invalid period!
+2025-02-26 22:43:43 - communication.telegram_client - ERROR - Errore nel recupero degli aggiornamenti: Not Found
+2025-02-26 22:43:43 - api.bybit_api - ERROR - Errore API Bybit: Invalid period!
+2025-02-26 22:43:43 - data.market_data - ERROR - Errore nel recupero dati per ETH/USDT 1h: Errore API Bybit: Invalid period!
+2025-02-26 22:43:44 - communication.telegram_client - ERROR - Errore nel recupero degli aggiornamenti: Not Found
+2025-02-26 22:43:45 - api.bybit_api - ERROR - Errore API Bybit: Invalid period!
+2025-02-26 22:43:45 - data.market_data - ERROR - Errore nel recupero dati per ETH/USDT 4h: Errore API Bybit: Invalid period!
+2025-02-26 22:43:45 - communication.telegram_client - ERROR - Errore nel recupero degli aggiornamenti: Not Found
+2025-02-26 22:43:46 - api.bybit_api - ERROR - Errore API Bybit: Invalid period!
+2025-02-26 22:43:46 - data.market_data - ERROR - Errore nel recupero dati per ETH/USDT 1d: Errore API Bybit: Invalid period!
+2025-02-26 22:43:47 - communication.telegram_client - ERROR - Errore nel recupero degli aggiornamenti: Not Found
+2025-02-26 22:43:47 - api.bybit_api - ERROR - Errore API Bybit: Invalid period!
+2025-02-26 22:43:47 - data.market_data - ERROR - Errore nel recupero dati per SOL/USDT 1m: Errore API Bybit: Invalid period!
+2025-02-26 22:43:48 - communication.telegram_client - ERROR - Errore nel recupero degli aggiornamenti: Not Found
+2025-02-26 22:43:48 - api.bybit_api - ERROR - Errore API Bybit: Invalid period!
+2025-02-26 22:43:48 - data.market_data - ERROR - Errore nel recupero dati per SOL/USDT 5m: Errore API Bybit: Invalid period!
+2025-02-26 22:43:49 - communication.telegram_client - ERROR - Errore nel recupero degli aggiornamenti: Not Found
+2025-02-26 22:43:50 - api.bybit_api - ERROR - Errore API Bybit: Invalid period!
+2025-02-26 22:43:50 - data.market_data - ERROR - Errore nel recupero dati per SOL/USDT 15m: Errore API Bybit: Invalid period!
+2025-02-26 22:43:50 - communication.telegram_client - ERROR - Errore nel recupero degli aggiornamenti: Not Found
+2025-02-26 22:43:51 - communication.telegram_client - ERROR - Errore nel recupero degli aggiornamenti: Not Found
+2025-02-26 22:43:51 - api.bybit_api - ERROR - Errore API Bybit: Invalid period!
+2025-02-26 22:43:51 - data.market_data - ERROR - Errore nel recupero dati per SOL/USDT 30m: Errore API Bybit: Invalid period!
+2025-02-26 22:43:52 - __main__ - INFO - Segnale 2 ricevuto, arresto in corso...
+2025-02-26 22:43:52 - core.bot - INFO - Arresto del bot...
+2025-02-26 22:43:52 - communication.telegram_client - ERROR - Errore nel recupero degli aggiornamenti: Not Found
+2025-02-26 22:43:53 - api.bybit_api - ERROR - Errore API Bybit: Invalid period!
+2025-02-26 22:43:53 - data.market_data - ERROR - Errore nel recupero dati per SOL/USDT 1h: Errore API Bybit: Invalid period!
+2025-02-26 22:43:54 - communication.telegram_client - ERROR - Errore nel recupero degli aggiornamenti: Not Found
+2025-02-26 22:43:54 - api.bybit_api - ERROR - Errore API Bybit: Invalid period!
+2025-02-26 22:43:54 - data.market_data - ERROR - Errore nel recupero dati per SOL/USDT 4h: Errore API Bybit: Invalid period!
+2025-02-26 22:43:55 - communication.telegram_client - ERROR - Errore nel recupero degli aggiornamenti: Not Found
+2025-02-26 22:43:55 - api.bybit_api - ERROR - Errore API Bybit: Invalid period!
+2025-02-26 22:43:55 - data.market_data - ERROR - Errore nel recupero dati per SOL/USDT 1d: Errore API Bybit: Invalid period!
+2025-02-26 22:43:56 - communication.telegram_client - ERROR - Errore nel recupero degli aggiornamenti: Not Found
+2025-02-26 22:43:56 - data.market_data - INFO - Thread di aggiornamento fermato
+2025-02-26 22:43:57 - communication.telegram_client - ERROR - Errore nel recupero degli aggiornamenti: Not Found
+2025-02-26 22:43:58 - communication.telegram_client - ERROR - Errore nel recupero degli aggiornamenti: Not Found
+2025-02-26 22:43:59 - communication.telegram_client - ERROR - Errore nel recupero degli aggiornamenti: Not Found
+2025-02-26 22:44:01 - communication.telegram_client - ERROR - Errore nel recupero degli aggiornamenti: Not Found
+2025-02-26 22:44:02 - communication.telegram_client - ERROR - Errore nel recupero degli aggiornamenti: Not Found
+2025-02-26 22:44:03 - communication.telegram_client - ERROR - Errore nel recupero degli aggiornamenti: Not Found
+2025-02-26 22:44:04 - communication.telegram_client - ERROR - Errore nel recupero degli aggiornamenti: Not Found
+2025-02-26 22:44:05 - communication.telegram_client - ERROR - Errore nel recupero degli aggiornamenti: Not Found
+2025-02-26 22:44:06 - __main__ - INFO - Segnale 2 ricevuto, arresto in corso...
+2025-02-26 22:44:06 - core.bot - WARNING - Il bot è già fermo
