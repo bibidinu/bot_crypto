@@ -46,6 +46,9 @@ logger = get_logger(__name__)
 # Rimuovi la ridefinizione delle enumerazioni qui, visto che sono già importate
 # da config/settings.py
 
+# Rimuovi la ridefinizione delle enumerazioni qui, visto che sono già importate
+# da config/settings.py
+
 class TradingBot:
     """Classe principale del Trading Bot"""
     
