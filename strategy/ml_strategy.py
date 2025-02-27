@@ -66,77 +66,86 @@ def prepare_features(self, data: pd.DataFrame) -> pd.DataFrame:
     Returns:
         DataFrame con features
     """
+    if len(data) < self.feature_window:
+        self.logger.warning(f"Dati insufficienti: {len(data)} righe < {self.feature_window} richieste")
+        return pd.DataFrame()
+        
     # Copia i dati per non modificare l'originale
     df = data.copy()
     
-    # Aggiungi indicatori tecnici
-    df = self.tech_strategy.add_indicators(df)
-    
-    # Rimuovi righe con valori NaN (dovuti al calcolo degli indicatori)
-    df = df.dropna()
-    
-    # Aggiungi feature di variazione percentuale con gestione degli infiniti
-    for col in ['open', 'high', 'low', 'close', 'volume']:
-        df[f"{col}_pct_change"] = df[col].pct_change()
-        # Sostituisci infinito con il massimo valore float64
-        df[f"{col}_pct_change"] = df[f"{col}_pct_change"].replace([np.inf, -np.inf], np.nan)
-    
-    # Aggiungi feature di volatilità con controllo divisione per zero
-    df['volatility'] = np.where(
-        df['low'] > 0,
-        df['high'] / df['low'] - 1,
-        0
-    )
-    
-    # Aggiungi feature di range con controllo
-    df['day_range'] = df['high'] - df['low']
-    df['day_range_pct'] = np.where(
-        df['close'] > 0,
-        df['day_range'] / df['close'],
-        0
-    )
-    
-    # Calcola feature di momentum con gestione degli infiniti
-    for period in [1, 3, 5, 10]:
-        df[f'momentum_{period}d'] = df['close'].pct_change(period)
-        df[f'momentum_{period}d'] = df[f'momentum_{period}d'].replace([np.inf, -np.inf], np.nan)
-    
-    # Calcola feature di autocorrelazione (già gestite da pandas)
-    df['autocorr_1'] = df['close'].autocorr(lag=1)
-    df['autocorr_5'] = df['close'].autocorr(lag=5)
-    
-    # Feature di rapporto volume/prezzo con controllo divisione per zero
-    df['volume_price_ratio'] = np.where(
-        df['close'] > 0,
-        df['volume'] / df['close'],
-        0
-    )
-    
-    # Feature ciclica per tempo (ora del giorno, giorno della settimana)
-    if 'datetime' in df.columns:
-        df['hour'] = pd.to_datetime(df['datetime']).dt.hour
-        df['day_of_week'] = pd.to_datetime(df['datetime']).dt.dayofweek
+    try:
+        # Aggiungi indicatori tecnici
+        df = self.tech_strategy.add_indicators(df)
         
-        # Trasforma queste feature in coordinate circolari (sin/cos)
-        df['hour_sin'] = np.sin(2 * np.pi * df['hour'] / 24)
-        df['hour_cos'] = np.cos(2 * np.pi * df['hour'] / 24)
-        df['day_sin'] = np.sin(2 * np.pi * df['day_of_week'] / 7)
-        df['day_cos'] = np.cos(2 * np.pi * df['day_of_week'] / 7)
-    
-    # Sostituisci i valori NaN rimanenti con 0
-    df = df.fillna(0)
-    
-    # Seleziona solo colonne numeriche
-    numeric_cols = df.select_dtypes(include=[np.number]).columns.tolist()
-    
-    # Rimuovi colonne non rilevanti per il modello
-    exclude_cols = ['timestamp']
-    feature_cols = [col for col in numeric_cols if col not in exclude_cols]
-    
-    # Clip dei valori per evitare outlier estremi
-    df[feature_cols] = df[feature_cols].clip(-1e10, 1e10)
-    
-    return df[feature_cols]
+        # Gestione valori NaN iniziali dovuti al calcolo degli indicatori
+        df = df.iloc[self.feature_window:]  # Rimuovi le prime n righe invece di dropna()
+        
+        # Aggiungi feature di variazione percentuale con gestione degli infiniti
+        for col in ['open', 'high', 'low', 'close', 'volume']:
+            df[f"{col}_pct_change"] = df[col].pct_change()
+            # Sostituisci infinito con il massimo valore float64
+            df[f"{col}_pct_change"] = df[f"{col}_pct_change"].replace([np.inf, -np.inf], 0)
+        
+        # Aggiungi feature di volatilità con controllo divisione per zero
+        df['volatility'] = np.where(
+            df['low'] > 0,
+            (df['high'] - df['low']) / df['low'],
+            0
+        )
+        
+        # Aggiungi feature di range con controllo
+        df['day_range'] = df['high'] - df['low']
+        df['day_range_pct'] = np.where(
+            df['close'] > 0,
+            df['day_range'] / df['close'],
+            0
+        )
+        
+        # Calcola feature di momentum con gestione degli infiniti
+        for period in [1, 3, 5, 10]:
+            df[f'momentum_{period}d'] = df['close'].pct_change(period)
+            df[f'momentum_{period}d'] = df[f'momentum_{period}d'].replace([np.inf, -np.inf], 0)
+        
+        # Feature di rapporto volume/prezzo con controllo divisione per zero
+        df['volume_price_ratio'] = np.where(
+            df['close'] > 0,
+            df['volume'] / df['close'],
+            0
+        )
+        
+        # Feature ciclica per tempo (ora del giorno, giorno della settimana)
+        if 'datetime' in df.columns:
+            df['hour'] = pd.to_datetime(df['datetime']).dt.hour
+            df['day_of_week'] = pd.to_datetime(df['datetime']).dt.dayofweek
+            
+            # Trasforma queste feature in coordinate circolari
+            df['hour_sin'] = np.sin(2 * np.pi * df['hour'] / 24)
+            df['hour_cos'] = np.cos(2 * np.pi * df['hour'] / 24)
+            df['day_sin'] = np.sin(2 * np.pi * df['day_of_week'] / 7)
+            df['day_cos'] = np.cos(2 * np.pi * df['day_of_week'] / 7)
+        
+        # Riempi i NaN rimanenti con 0
+        df = df.fillna(0)
+        
+        # Seleziona solo colonne numeriche
+        numeric_cols = df.select_dtypes(include=[np.number]).columns.tolist()
+        
+        # Rimuovi colonne non rilevanti
+        exclude_cols = ['timestamp']
+        feature_cols = [col for col in numeric_cols if col not in exclude_cols]
+        
+        # Clip dei valori per evitare outlier estremi
+        df[feature_cols] = df[feature_cols].clip(-1e6, 1e6)
+        
+        if df.empty:
+            self.logger.warning("DataFrame vuoto dopo il preprocessing")
+            return pd.DataFrame()
+            
+        return df[feature_cols]
+        
+    except Exception as e:
+        self.logger.error(f"Errore nella preparazione delle features: {str(e)}")
+        return pd.DataFrame()
     
     def create_target(self, data: pd.DataFrame, look_ahead: int = 12) -> pd.DataFrame:
         """
