@@ -1,0 +1,200 @@
+"""
+Strategia avanzata di hedging per la gestione del rischio nei futures
+"""
+import numpy as np
+import pandas as pd
+from typing import Dict, List, Optional, Any, Tuple
+
+from api.exchange_interface import ExchangeInterface
+from strategy.strategy_base import StrategyBase, Signal, SignalType, EntryType
+from risk_management.leverage_manager import LeverageManager
+from data.market_data import MarketData
+from utils.logger import get_logger
+
+class HedgingStrategy(StrategyBase):
+    """
+    Strategia di hedging dinamica per la protezione del capitale
+    """
+    
+    def __init__(
+        self, 
+        exchange: ExchangeInterface,
+        market_data: MarketData,
+        leverage_manager: LeverageManager,
+        name: str = "AdvancedHedgingStrategy"
+    ):
+        """
+        Inizializza la strategia di hedging
+        
+        Args:
+            exchange: Interfaccia dell'exchange
+            market_data: Gestore dei dati di mercato
+            leverage_manager: Gestore della leva
+            name: Nome della strategia
+        """
+        super().__init__(exchange, name)
+        
+        self.market_data = market_data
+        self.leverage_manager = leverage_manager
+        
+        # Parametri di hedging
+        self.correlation_threshold = 0.7
+        self.max_hedge_ratio = 0.5
+        self.hedge_rebalance_period = 24  # ore
+        
+        self.logger = get_logger(__name__)
+        
+        # Cache per le correlazioni
+        self.correlation_cache = {}
+        self.last_hedge_time = {}
+    
+    def calculate_correlation(
+        self, 
+        symbol1: str, 
+        symbol2: str, 
+        period: int = 30
+    ) -> float:
+        """
+        Calcola la correlazione tra due simboli
+        
+        Args:
+            symbol1: Primo simbolo
+            symbol2: Secondo simbolo
+            period: Periodo per il calcolo della correlazione
+        
+        Returns:
+            Coefficiente di correlazione
+        """
+        # Chiave cache
+        cache_key = f"{symbol1}_{symbol2}_{period}"
+        
+        # Verifica la cache
+        if cache_key in self.correlation_cache:
+            return self.correlation_cache[cache_key]
+        
+        try:
+            # Ottieni i dati per entrambi i simboli
+            data1 = self.market_data.get_market_data(symbol1, limit=period)
+            data2 = self.market_data.get_market_data(symbol2, limit=period)
+            
+            # Calcola i rendimenti
+            returns1 = data1['close'].pct_change().dropna()
+            returns2 = data2['close'].pct_change().dropna()
+            
+            # Calcola la correlazione
+            correlation = returns1.corr(returns2)
+            
+            # Salva in cache
+            self.correlation_cache[cache_key] = correlation
+            
+            return correlation
+        
+        except Exception as e:
+            self.logger.error(f"Errore nel calcolo della correlazione: {e}")
+            return 0.0
+    
+    def generate_hedge_signal(
+        self, 
+        primary_symbol: str, 
+        hedge_symbol: Optional[str] = None
+    ) -> Signal:
+        """
+        Genera un segnale di hedging
+        
+        Args:
+            primary_symbol: Simbolo primario
+            hedge_symbol: Simbolo per l'hedging (opzionale)
+        
+        Returns:
+            Segnale di hedging
+        """
+        try:
+            # Se non è specificato l'hedge symbol, trova un simbolo correlato
+            if not hedge_symbol:
+                hedge_symbol = self._find_correlated_symbol(primary_symbol)
+            
+            # Calcola la correlazione
+            correlation = self.calculate_correlation(primary_symbol, hedge_symbol)
+            
+            # Verifica se è necessario fare hedging
+            if abs(correlation) < self.correlation_threshold:
+                return Signal(
+                    symbol=primary_symbol, 
+                    signal_type=SignalType.HOLD,
+                    reason="Correlazione insufficiente per hedging"
+                )
+            
+            # Ottieni i dati di mercato
+            primary_data = self.market_data.get_market_data(primary_symbol)
+            hedge_data = self.market_data.get_market_data(hedge_symbol)
+            
+            # Calcola il rapporto di hedging
+            hedge_ratio = min(
+                abs(correlation) * self.max_hedge_ratio, 
+                self.max_hedge_ratio
+            )
+            
+            # Direzione dell'hedging (opposta al simbolo primario)
+            entry_type = (
+                EntryType.SHORT if correlation > 0 else EntryType.LONG
+            )
+            
+            # Calcola la dimensione della posizione di hedging
+            primary_price = primary_data.iloc[-1]['close']
+            hedge_price = hedge_data.iloc[-1]['close']
+            
+            # Costruisci il segnale di hedging
+            return Signal(
+                symbol=hedge_symbol,
+                signal_type=SignalType.BUY if entry_type == EntryType.SHORT else SignalType.SELL,
+                entry_type=entry_type,
+                price=hedge_price,
+                strength=abs(correlation),
+                reason=f"Hedge per {primary_symbol} con correlazione {correlation:.2f}"
+            )
+        
+        except Exception as e:
+            self.logger.error(f"Errore nella generazione del segnale di hedging: {e}")
+            return Signal(
+                symbol=primary_symbol, 
+                signal_type=SignalType.HOLD
+            )
+    
+    def _find_correlated_symbol(
+        self, 
+        primary_symbol: str, 
+        correlation_threshold: float = 0.6
+    ) -> Optional[str]:
+        """
+        Trova un simbolo altamente correlato per l'hedging
+        
+        Args:
+            primary_symbol: Simbolo primario
+            correlation_threshold: Soglia minima di correlazione
+        
+        Returns:
+            Simbolo correlato o None
+        """
+        try:
+            # Lista di simboli per la ricerca
+            candidate_symbols = [
+                "BTC/USDT", "ETH/USDT", "BNB/USDT", 
+                "SOL/USDT", "XRP/USDT", "ADA/USDT"
+            ]
+            
+            # Rimuovi il simbolo primario
+            candidate_symbols = [
+                s for s in candidate_symbols 
+                if s != primary_symbol
+            ]
+            
+            # Trova il simbolo più correlato
+            best_correlation = 0
+            best_symbol = None
+            
+            for symbol in candidate_symbols:
+                correlation = self.calculate_correlation(primary_symbol, symbol)
+                
+                if correlation > best_correlation and correlation >= correlation_threshold:
+                    best_correlation = correlation
+                
