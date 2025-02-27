@@ -138,23 +138,26 @@ class StrategyBase(ABC):
         """
         pass
     
-    def get_market_data(self, symbol: str, limit: int = 200) -> pd.DataFrame:
-        """
-        Ottiene i dati di mercato per il simbolo specificato
+def get_market_data(self, symbol: str, limit: int = 500) -> pd.DataFrame:  # Aumentato da 200 a 500
+    """
+    Ottiene i dati di mercato per il simbolo specificato
+    
+    Args:
+        symbol: Simbolo della coppia
+        limit: Numero di candele da recuperare
         
-        Args:
-            symbol: Simbolo della coppia
-            limit: Numero di candele da recuperare
-            
-        Returns:
-            DataFrame con i dati di mercato
-        """
-        try:
-            data = self.exchange.get_klines(symbol, self.timeframe, limit=limit)
-            return data
-        except Exception as e:
-            self.logger.error(f"Errore nel recupero dei dati per {symbol}: {str(e)}")
-            raise
+    Returns:
+        DataFrame con i dati di mercato
+    """
+    try:
+        data = self.exchange.get_klines(symbol, self.timeframe, limit=limit)
+        if len(data) < self.feature_window:  # Aggiungi questo controllo
+            self.logger.warning(f"Dati insufficienti per {symbol}: {len(data)} < {self.feature_window}")
+            return pd.DataFrame()
+        return data
+    except Exception as e:
+        self.logger.error(f"Errore nel recupero dei dati per {symbol}: {str(e)}")
+        return pd.DataFrame()
     
     def analyze(self, symbol: str, limit: int = 200) -> Signal:
         """
