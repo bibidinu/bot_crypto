@@ -11,6 +11,7 @@ import pandas as pd
 import numpy as np
 from datetime import datetime, timedelta
 import uuid
+from enum import Enum  # Aggiunto l'import mancante
 
 from api.bybit_api import BybitAPI
 from strategy.technical_strategy import TechnicalStrategy
@@ -41,6 +42,9 @@ from commands.cmd_processor import CommandProcessor
 from commands.cmd_handlers import CommandHandlers
 
 logger = get_logger(__name__)
+
+# Rimuovi la ridefinizione delle enumerazioni qui, visto che sono già importate
+# da config/settings.py
 
 class TradingBot:
     """Classe principale del Trading Bot"""
