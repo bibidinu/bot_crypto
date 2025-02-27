@@ -17,39 +17,6 @@ from utils.logger import get_logger
 
 logger = get_logger(__name__)
 
-def _convert_interval(self, interval: str) -> str:
-    """
-    Converte l'intervallo nel formato accettato da Bybit
-    
-    Args:
-        interval: Intervallo (es. '1m', '1h', '1d')
-    
-    Returns:
-        Intervallo nel formato Bybit
-    """
-    # Mappatura degli intervalli al formato di Bybit
-    interval_map = {
-        "1m": "1",
-        "3m": "3",
-        "5m": "5",
-        "15m": "15",
-        "30m": "30", 
-        "1h": "60",
-        "2h": "120",
-        "4h": "240",
-        "6h": "360",
-        "12h": "720",
-        "1d": "D",
-        "1w": "W",
-        "1M": "M"
-    }
-    
-    if interval in interval_map:
-        return interval_map[interval]
-    else:
-        logger.warning(f"Intervallo {interval} non supportato, usando 15m")
-        return "15"  # Default a 15 minuti
-        
 class BybitAPI:
     """
     Classe per interagire con l'API di Bybit V5
@@ -72,7 +39,7 @@ class BybitAPI:
         self.testnet = self.credentials["testnet"]
         
         # Base URL per le chiamate API
-        self.base_url = "https://api-demo.bybit.com" if self.testnet else "https://api.bybit.com"
+        self.base_url = "https://api-testnet.bybit.com" if self.testnet else "https://api.bybit.com"
         
         logger.info(f"BybitAPI inizializzata in modalità: {mode.value}")
     
@@ -158,6 +125,39 @@ class BybitAPI:
             logger.error(f"Errore di richiesta API: {str(e)}")
             raise
     
+    def _convert_interval(self, interval: str) -> str:
+        """
+        Converte l'intervallo nel formato accettato da Bybit
+        
+        Args:
+            interval: Intervallo (es. '1m', '1h', '1d')
+        
+        Returns:
+            Intervallo nel formato Bybit
+        """
+        # Mappatura degli intervalli al formato di Bybit
+        interval_map = {
+            "1m": "1",
+            "3m": "3",
+            "5m": "5",
+            "15m": "15",
+            "30m": "30", 
+            "1h": "60",
+            "2h": "120",
+            "4h": "240",
+            "6h": "360",
+            "12h": "720",
+            "1d": "D",
+            "1w": "W",
+            "1M": "M"
+        }
+        
+        if interval in interval_map:
+            return interval_map[interval]
+        else:
+            logger.warning(f"Intervallo {interval} non supportato, usando 15m")
+            return "15"  # Default a 15 minuti
+    
     # --- Metodi per il Market Data ---
     
     def get_klines(self, symbol: str, interval: str, limit: int = 200, 
@@ -177,10 +177,13 @@ class BybitAPI:
         """
         endpoint = "/v5/market/kline"
         
+        # Converti l'intervallo nel formato supportato da Bybit
+        bybit_interval = self._convert_interval(interval)
+        
         params = {
             "category": "spot",
             "symbol": symbol.replace("/", ""),
-            "interval": interval,
+            "interval": bybit_interval,
             "limit": min(limit, 1000)  # Massimo 1000 candele per richiesta
         }
         
@@ -206,6 +209,9 @@ class BybitAPI:
             })
             
         df = pd.DataFrame(klines)
+        if df.empty:
+            return df
+            
         # Ordina per timestamp in ordine crescente
         df = df.sort_values("timestamp")
         
