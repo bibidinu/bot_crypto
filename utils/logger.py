@@ -82,17 +82,31 @@ def _create_logger(name: str) -> logging.Logger:
         datefmt='%Y-%m-%d %H:%M:%S'
     )
     
-    # Handler per i file di log con rotazione
+    # Handler per i file di log con rotazione e codifica UTF-8
     file_handler = RotatingFileHandler(
         LOG_FILE,
         maxBytes=10 * 1024 * 1024,  # 10 MB
-        backupCount=10
+        backupCount=10,
+        encoding='utf-8'  # Aggiungiamo la codifica UTF-8
     )
     file_handler.setFormatter(formatter)
     file_handler.setLevel(level_map.get(LOG_LEVEL, logging.INFO))
     
-    # Handler per la console
-    console_handler = logging.StreamHandler(sys.stdout)
+    # Handler per la console con codifica UTF-8
+    # In Windows, possiamo usare il modulo 'codecs' per assicurare la corretta gestione degli emoji
+    import codecs
+    import sys
+    
+    # Correggi l'encoding della console per Windows
+    if sys.platform == 'win32':
+        try:
+            # Prova a impostare encoding UTF-8 per la console su Windows
+            sys.stdout.reconfigure(encoding='utf-8')
+        except AttributeError:
+            # Per versioni più vecchie di Python o sistemi che non supportano reconfigure
+            pass
+    
+    console_handler = logging.StreamHandler(stream=sys.stdout)
     console_handler.setFormatter(formatter)
     console_handler.setLevel(level_map.get(LOG_LEVEL, logging.INFO))
     
